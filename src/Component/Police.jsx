@@ -6,25 +6,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-const tegomin = createMuiTheme({
-  typography: {
-    fontFamily: ['New Tegomin', 'serif'].join(','),
-  },
-});
-
-const dancing = createMuiTheme({
-  typography: {
-    fontFamily: ['Dancing Script', 'cursive'].join(','),
-  },
-});
-
-const serifPro = createMuiTheme({
-  typography: {
-    fontFamily: ['Source Serif Pro', 'serif'].join(','),
-  },
-});
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -69,20 +50,14 @@ export default function Police() {
           onOpen={handleOpen}
           value={age}
           onChange={handleChange}>
-          <MenuItem value={'tegomin'}>
-            <ThemeProvider theme={tegomin}>
-              <Typography>Police Tegomin</Typography>
-            </ThemeProvider>
+          <MenuItem>
+            <Typography style={{ fontFamily: '"New Tegomin", serif' }}>Police Tegomin</Typography>
           </MenuItem>
-          <MenuItem value={'dancing'}>
-            <ThemeProvider theme={dancing}>
-              <Typography>Police Dancing</Typography>
-            </ThemeProvider>
+          <MenuItem>
+            <Typography style={{ fontFamily: '"Dancing Script", serif' }}>Police Dancing</Typography>
           </MenuItem>
-          <MenuItem value={'serifPro'}>
-            <ThemeProvider theme={serifPro}>
-              <Typography>Police serif Pro</Typography>
-            </ThemeProvider>
+          <MenuItem>
+            <Typography style={{ fontFamily: '"Source Serif Pro", serif' }}>Police serif Pro</Typography>
           </MenuItem>
         </Select>
       </FormControl>
