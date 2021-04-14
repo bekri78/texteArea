@@ -6,25 +6,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-const tegomin = createMuiTheme({
-  typography: {
-    fontFamily: ['New Tegomin', 'serif'].join(','),
-  },
-});
-
-const dancing = createMuiTheme({
-  typography: {
-    fontFamily: ['Dancing Script', 'cursive'].join(','),
-  },
-});
-
-const serifPro = createMuiTheme({
-  typography: {
-    fontFamily: ['Source Serif Pro', 'serif'].join(','),
-  },
-});
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -37,13 +18,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Police() {
+export default function Police(props) {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [police, setPolice] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    props.onChangePolice(event.target.value);
+    setPolice(event.target.value);
+    console.log(event);
   };
 
   const handleClose = () => {
@@ -67,22 +50,16 @@ export default function Police() {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={age}
+          value={police}
           onChange={handleChange}>
-          <MenuItem value={'tegomin'}>
-            <ThemeProvider theme={tegomin}>
-              <Typography>Police Tegomin</Typography>
-            </ThemeProvider>
+          <MenuItem value={'"New Tegomin", serif'}>
+            <Typography style={{ fontFamily: '"New Tegomin", serif' }}>Police Tegomin</Typography>
           </MenuItem>
-          <MenuItem value={'dancing'}>
-            <ThemeProvider theme={dancing}>
-              <Typography>Police Dancing</Typography>
-            </ThemeProvider>
+          <MenuItem value={'"Dancing Script", serif'}>
+            <Typography style={{ fontFamily: '"Dancing Script", serif' }}>Police Dancing</Typography>
           </MenuItem>
-          <MenuItem value={'serifPro'}>
-            <ThemeProvider theme={serifPro}>
-              <Typography>Police serif Pro</Typography>
-            </ThemeProvider>
+          <MenuItem value={'"Source Serif Pro", serif'}>
+            <Typography style={{ fontFamily: '"Source Serif Pro", serif' }}>Police serif Pro</Typography>
           </MenuItem>
         </Select>
       </FormControl>

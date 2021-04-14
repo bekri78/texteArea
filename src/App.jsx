@@ -1,5 +1,5 @@
 import React from 'react';
-import TextToSpeech from './Component/TextToSppech';
+import TextToSpeech from './views/TextToSpeech';
 
 function App() {
   return (
