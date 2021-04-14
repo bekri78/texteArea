@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { RecordVoiceOver, GetApp } from '@material-ui/icons';
 //import PDF from '../components/Pdf/pdf';
 
-import { Box, TextField, Typography, CardContent, Card, CardActions } from '@material-ui/core';
+import { Box, TextField, Typography, CardContent, Card } from '@material-ui/core';
 import Espace from '../components/Espace';
 import Couleur from '../components/Couleur';
 import Voyelles from '../components/Voyelles';
