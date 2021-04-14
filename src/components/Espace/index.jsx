@@ -17,41 +17,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Espace() {
+export default function Espace(props) {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
-  const [open, setOpen] = React.useState(false);
+  const [line, setLine] = React.useState('');
+  const [openSelectLine, setOpenSelectLine] = React.useState(false);
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleChangeLineClick = (event) => {
+    setLine(event.target.value);
+    // eslint-disable-next-line react/prop-types
+    props.onChangeLine(event.target.value);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseSelectLine = () => {
+    setOpenSelectLine(false);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleOpenSelectLine = () => {
+    setOpenSelectLine(true);
   };
 
   return (
     <div>
-      <Button className={classes.button} onClick={handleOpen}>
-        Espacement
+      <Button className={classes.button} onClick={handleOpenSelectLine}>
+        Interlignage
       </Button>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Selectionner</InputLabel>
+        <InputLabel id="controlled-open-select-label">Interlignage</InputLabel>
         <Select
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value={age}
-          onChange={handleChange}>
-          <MenuItem value={'lettre'}>Lettres</MenuItem>
-          <MenuItem value={'mot'}>Mots</MenuItem>
-          <MenuItem value={'ligne'}>Lignes</MenuItem>
+          labelId="controlled-open-select-label"
+          id="controlled-open-select"
+          open={openSelectLine}
+          onClose={handleCloseSelectLine}
+          onOpen={handleOpenSelectLine}
+          value={line}
+          onChange={handleChangeLineClick}>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={1.5}>1.5</MenuItem>
+          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={2.5}>2.5</MenuItem>
+          <MenuItem value={3}>3</MenuItem>
         </Select>
       </FormControl>
     </div>

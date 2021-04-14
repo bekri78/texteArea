@@ -41,6 +41,7 @@ function TextToSpeech() {
   const [value, setValue] = useState();
   const [modifiedValue, setModifiedValue] = useState([]); // creation d'un state array pour contenir le texte tranformer de voyelles.jsx
   const [currentPolice, setCurrentPolice] = useState('');
+  const [currentLineHeight, setCurrentLineHeight] = useState(''); //useState pour modifier interlignage
   const { speak } = useSpeechSynthesis();
   // Callback avec array vide permet de ne pas re rendre la déclaration d'une function
   const handleValueChange = useCallback((event) => {
@@ -55,11 +56,10 @@ function TextToSpeech() {
   return (
     <>
       <div className={classes.color}>
-        <Espace />
+        <Espace onChangeLine={(newLineHeight) => setCurrentLineHeight(newLineHeight)} />
         <Couleur />
         {/* recupration props " textModifier " enfant to parents */}
         <Voyelles textModifier={handleTextModifier} value={value} />
-
         <Police onChangePolice={(newPolice) => setCurrentPolice(newPolice)} />
       </div>
 
@@ -80,6 +80,9 @@ function TextToSpeech() {
             value={value}
             className={classes.input}
             onChange={handleValueChange}
+            inputProps={{
+              style: { fontFamily: currentPolice, lineHeight: currentLineHeight },
+            }}
           />
           {/* wordBreak: 'break-all'  = retour a la ligne du text automatique*/}
           <div style={{ wordBreak: 'break-all' }}>
@@ -89,8 +92,8 @@ function TextToSpeech() {
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Vos Modifications
                 </Typography>
-                <Typography style={{ fontFamily: currentPolice }} variant="h5" component="h2">
-                  {/* parcpour mon tableau et affiche les lettres avec les span colorier */}
+                <Typography style={{ fontFamily: currentPolice, lineHeight: currentLineHeight }} variant="h5" component="h2">
+                  {/* parcours mon tableau et affiche les lettres avec les span colorier */}
                   {/*fragment = <> utilisé pour englober letter et mettre une key  */}
                   {modifiedValue.map((letter, index) => (
                     <Fragment key={index}>{letter}</Fragment>
