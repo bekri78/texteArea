@@ -29,7 +29,7 @@ export default function Voyelles(props) {
         }
       }
     }
-
+    console.log(newArea);
     return props.textModifier(newArea);
   };
 
@@ -57,6 +57,9 @@ export default function Voyelles(props) {
           onOpen={handleOpen}
           value={colorValue}
           onChange={handleChange}>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           {COLOR_OPTIONS.map((item) => (
             <MenuItem value={item.value} key={item.id}>
               <Avatar className={classes[item.class]}>{item.letter}</Avatar>

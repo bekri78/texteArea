@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: deepOrange[500],
   },
   blue: {
-    backgroundColor: '#f1d40e',
+    backgroundColor: '#0000FF',
   },
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
@@ -30,13 +30,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Couleur() {
+export default function Couleur(props) {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [couleur, setCouleur] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setCouleur(event.target.value);
+    props.colorModifier(event.target.value);
   };
 
   const handleClose = () => {
@@ -60,13 +61,16 @@ export default function Couleur() {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={age}
+          value={couleur}
           onChange={handleChange}>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           <MenuItem value={'orange'}>
             {' '}
             <Avatar className={classes.orange}>Or</Avatar>
           </MenuItem>
-          <MenuItem value={'jaune'}>
+          <MenuItem value={'blue'}>
             {' '}
             <Avatar className={classes.blue}>Ja</Avatar>
           </MenuItem>

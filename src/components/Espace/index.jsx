@@ -17,13 +17,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Espace() {
+export default function Espace(props) {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [letterSpacing, setLetterSpacing] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    props.letterSpacingModifier(event.target.value);
+    setLetterSpacing(event.target.value);
   };
 
   const handleClose = () => {
@@ -47,11 +48,11 @@ export default function Espace() {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={age}
+          value={letterSpacing}
           onChange={handleChange}>
-          <MenuItem value={'lettre'}>Lettres</MenuItem>
-          <MenuItem value={'mot'}>Mots</MenuItem>
-          <MenuItem value={'ligne'}>Lignes</MenuItem>
+          <MenuItem value={'.1rem'}>x1</MenuItem>
+          <MenuItem value={'.2rem'}>x2</MenuItem>
+          <MenuItem value={'.3rem'}>x3</MenuItem>
         </Select>
       </FormControl>
     </div>
