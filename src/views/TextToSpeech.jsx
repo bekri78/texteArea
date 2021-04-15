@@ -1,7 +1,8 @@
-import React, { useState, useCallback, Fragment } from 'react';
-import { useSpeechSynthesis } from 'react-speech-kit';
+import React, { useState, useCallback, Fragment, useEffect } from 'react';
+import SpeechSynthesisExample from '../components/SpeechToText/useSpeechSynthesis';
+import SpeechRecognitionExample from '../components/SpeechToText/useSpeechRecognition';
 import { makeStyles } from '@material-ui/core/styles';
-import { RecordVoiceOver } from '@material-ui/icons';
+
 //import PDF from '../components/Pdf/pdf';
 
 import { Box, TextField, Typography, CardContent, Card } from '@material-ui/core';
@@ -35,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
   color: {
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: '-20px',
   },
   containerWrapper: {
     width: '100%',
@@ -57,8 +57,13 @@ function TextToSpeech() {
   const [currentPolice, setCurrentPolice] = useState(''); //
   const [letterSpacing, setLetterSpacing] = useState('');
   const [colorText, setColorText] = useState('');
-  const { speak } = useSpeechSynthesis();
 
+  useEffect(
+    () => {
+      console.log('je suis la', value);
+    },
+    { value },
+  );
   // Callback avec array vide permet de ne pas re rendre la déclaration d'une function
   const handleValueChange = useCallback((event) => {
     setValue(event.target.value);
@@ -133,8 +138,9 @@ function TextToSpeech() {
           </div>
         </Box>
         {/* librairie text to speach */}
-        <RecordVoiceOver onClick={() => speak({ text: value })} />
       </div>
+      <SpeechSynthesisExample text={value} />
+      <SpeechRecognitionExample vocaleTexte={(mots) => setValue(mots)} />
     </>
   );
 }

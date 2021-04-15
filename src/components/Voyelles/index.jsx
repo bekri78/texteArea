@@ -6,7 +6,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
 import Avatar from '@material-ui/core/Avatar';
 
 export default function Voyelles(props) {
@@ -43,11 +42,13 @@ export default function Voyelles(props) {
 
   return (
     <div>
-      <h4 className={classes.titre}>Couleur Voyelles</h4>
-
+      <h4>Couleur Voyelles</h4>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Selectionner</InputLabel>
+        <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
+          Selectionner
+        </InputLabel>
         <Select
+          className={classes.select}
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           open={open}
@@ -55,14 +56,12 @@ export default function Voyelles(props) {
           onOpen={handleOpen}
           value={colorValue}
           onChange={handleChange}>
-          <MenuItem value="">
+          <MenuItem className={classes.menuItem} value="">
             <em>None</em>
           </MenuItem>
           {COLOR_OPTIONS.map((item) => (
             <MenuItem value={item.value} key={item.id}>
-              <Avatar className={classes[item.class]} style={{ width: '20px', height: '20px' }}>
-                {item.letter}
-              </Avatar>
+              <Avatar className={classes[item.class]}>{item.letter}</Avatar>
             </MenuItem>
           ))}
         </Select>

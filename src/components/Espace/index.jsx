@@ -4,16 +4,20 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+  },
+  inputLabel: {
+    fontSize: '16px',
+  },
+  menuItem: {
+    fontSize: '16px',
+  },
+  select: {
+    fontSize: '16px',
   },
 }));
 
@@ -23,6 +27,7 @@ export default function Espace(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
+    // eslint-disable-next-line react/prop-types
     props.letterSpacingModifier(event.target.value);
     setLetterSpacing(event.target.value);
   };
@@ -37,12 +42,13 @@ export default function Espace(props) {
 
   return (
     <div>
-      <Button className={classes.button} onClick={handleOpen}>
-        Espacement
-      </Button>
+      <h4>Inter-lettre</h4>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Selectionner</InputLabel>
+        <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
+          Selectionner
+        </InputLabel>
         <Select
+          className={classes.select}
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           open={open}
@@ -50,9 +56,18 @@ export default function Espace(props) {
           onOpen={handleOpen}
           value={letterSpacing}
           onChange={handleChange}>
-          <MenuItem value={'.1rem'}>x1</MenuItem>
-          <MenuItem value={'.2rem'}>x2</MenuItem>
-          <MenuItem value={'.3rem'}>x3</MenuItem>
+          <MenuItem className={classes.menuItem} value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem className={classes.menuItem} value={'.1rem'}>
+            1
+          </MenuItem>
+          <MenuItem className={classes.menuItem} value={'.2rem'}>
+            2
+          </MenuItem>
+          <MenuItem className={classes.menuItem} value={'.3rem'}>
+            3
+          </MenuItem>
         </Select>
       </FormControl>
     </div>

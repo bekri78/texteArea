@@ -30,6 +30,7 @@
     "react-html-parser": "^2.0.2",
     "react-speech-kit": "^3.0.1",
     "react-to-pdf": "0.0.13",
+    "styled-components": "^5.2.3",
     "tailwindcss": "^2.1.1"
   },
   "devDependencies": {
