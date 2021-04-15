@@ -4,20 +4,24 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
   },
+  inputLabel: {
+    fontSize: '16px',
+  },
+  menuItem: {
+    fontSize: '16px',
+  },
+  select: {
+    fontSize: '16px',
+  },
 }));
 
-export default function Espace(props) {
+export default function Interlignage(props) {
   const classes = useStyles();
   const [line, setLine] = React.useState('');
   const [openSelectLine, setOpenSelectLine] = React.useState(false);
@@ -38,12 +42,12 @@ export default function Espace(props) {
 
   return (
     <div>
-      <Button className={classes.button} onClick={handleOpenSelectLine}>
-        Interlignage
-      </Button>
       <FormControl className={classes.formControl}>
-        <InputLabel id="controlled-open-select-label">Interlignage</InputLabel>
+        <InputLabel className={classes.inputLabel} id="controlled-open-select-label">
+          Interlignage
+        </InputLabel>
         <Select
+          className={classes.select}
           labelId="controlled-open-select-label"
           id="controlled-open-select"
           open={openSelectLine}
@@ -51,13 +55,21 @@ export default function Espace(props) {
           onOpen={handleOpenSelectLine}
           value={line}
           onChange={handleChangeLineClick}>
-          <MenuItem value="">
+          <MenuItem className={classes.menuItem} value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={1.5}>1.5</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={2.5}>2.5</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
+          <MenuItem className={classes.menuItem} value={1.5}>
+            1.5
+          </MenuItem>
+          <MenuItem className={classes.menuItem} value={2}>
+            2
+          </MenuItem>
+          <MenuItem className={classes.menuItem} value={2.5}>
+            2.5
+          </MenuItem>
+          <MenuItem className={classes.menuItem} value={3}>
+            3
+          </MenuItem>
         </Select>
       </FormControl>
     </div>

@@ -4,7 +4,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +23,7 @@ export default function Police(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
+    // eslint-disable-next-line react/prop-types
     props.onChangePolice(event.target.value);
     setPolice(event.target.value);
     console.log(event);
@@ -39,9 +39,6 @@ export default function Police(props) {
 
   return (
     <div>
-      <Button className={classes.button} onClick={handleOpen}>
-        Police
-      </Button>
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-controlled-open-select-label">Selectionner </InputLabel>
         <Select

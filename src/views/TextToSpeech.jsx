@@ -3,7 +3,8 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 import { makeStyles } from '@material-ui/core/styles';
 import { AccessAlarm } from '@material-ui/icons';
 import { Box, TextField, Typography, CardContent, Card } from '@material-ui/core';
-import Espace from '../components/Espace';
+import Interlignage from '../components/Interlignage';
+import WordSpacing from '../components/Intermot';
 import Couleur from '../components/Couleur';
 import Voyelles from '../components/Voyelles';
 import Police from '../components/Police';
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   color: {
     display: 'flex',
     justifyContent: 'center',
+    marginBottom: '-10px',
   },
   containerWrapper: {
     width: '100%',
@@ -42,6 +44,7 @@ function TextToSpeech() {
   const [modifiedValue, setModifiedValue] = useState([]); // creation d'un state array pour contenir le texte tranformer de voyelles.jsx
   const [currentPolice, setCurrentPolice] = useState('');
   const [currentLineHeight, setCurrentLineHeight] = useState(''); //useState pour modifier interlignage
+  const [currentWordSpace, setCurrentWordSpace] = useState(''); //useState pour modifier inter-mot
   const { speak } = useSpeechSynthesis();
   // Callback avec array vide permet de ne pas re rendre la déclaration d'une function
   const handleValueChange = useCallback((event) => {
@@ -56,9 +59,10 @@ function TextToSpeech() {
   return (
     <>
       <div className={classes.color}>
-        <Espace onChangeLine={(newLineHeight) => setCurrentLineHeight(newLineHeight)} />
+        <Interlignage onChangeLine={(newLineHeight) => setCurrentLineHeight(newLineHeight)} />
+        <WordSpacing onChangeLine={(newWordSpace) => setCurrentWordSpace(newWordSpace)} />
         <Couleur />
-        {/* recupration props " textModifier " enfant to parents */}
+        {/* recupération props " textModifier " enfant to parents */}
         <Voyelles textModifier={handleTextModifier} value={value} />
         <Police onChangePolice={(newPolice) => setCurrentPolice(newPolice)} />
       </div>
@@ -71,17 +75,17 @@ function TextToSpeech() {
             placeholder="Entrer votre texte..."
             helperText="Facilitons la lecture !"
             multiline
-            rows={10}
+            rows={20}
             margin="normal"
             InputLabelProps={{
               shrink: true,
             }}
-            variant="filled"
+            variant="outlined"
             value={value}
             className={classes.input}
             onChange={handleValueChange}
             inputProps={{
-              style: { fontFamily: currentPolice, lineHeight: currentLineHeight },
+              style: { fontFamily: currentPolice, lineHeight: currentLineHeight, wordSpacing: currentWordSpace },
             }}
           />
           {/* wordBreak: 'break-all'  = retour a la ligne du text automatique*/}
@@ -92,7 +96,10 @@ function TextToSpeech() {
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Vos Modifications
                 </Typography>
-                <Typography style={{ fontFamily: currentPolice, lineHeight: currentLineHeight }} variant="h5" component="h2">
+                <Typography
+                  style={{ fontFamily: currentPolice, lineHeight: currentLineHeight, wordSpacing: currentWordSpace }}
+                  variant="h5"
+                  component="h2">
                   {/* parcours mon tableau et affiche les lettres avec les span colorier */}
                   {/*fragment = <> utilisé pour englober letter et mettre une key  */}
                   {modifiedValue.map((letter, index) => (

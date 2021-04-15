@@ -6,7 +6,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 
 export default function Voyelles(props) {
@@ -43,10 +42,6 @@ export default function Voyelles(props) {
 
   return (
     <div>
-      <Button className={classes.button} onClick={handleOpen}>
-        Couleur Voyelles
-      </Button>
-
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-controlled-open-select-label">Selectionner</InputLabel>
         <Select
