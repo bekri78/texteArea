@@ -20,6 +20,16 @@ const useStyles = makeStyles((theme) => ({
   jaune: {
     backgroundColor: '#FFFF00',
   },
+
+  inputLabel: {
+    fontSize: '16px',
+  },
+  menuItem: {
+    fontSize: '16px',
+  },
+  select: {
+    fontSize: '16px',
+  },
 }));
 
 export default useStyles;

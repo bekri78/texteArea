@@ -3,8 +3,9 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 import { makeStyles } from '@material-ui/core/styles';
 import { RecordVoiceOver } from '@material-ui/icons';
 //import PDF from '../components/Pdf/pdf';
-
 import { Box, TextField, Typography, CardContent, Card } from '@material-ui/core';
+import Interlignage from '../components/Interlignage';
+import WordSpacing from '../components/Intermot';
 import Espace from '../components/Espace';
 import Couleur from '../components/Couleur';
 import Voyelles from '../components/Voyelles';
@@ -18,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
   root2: {
     boxShadow: '0 0px 10px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
-    minHeight: '227px',
-    maxHeight: '227px',
+    minHeight: '497px',
+    maxHeight: '497px',
     overflow: 'auto',
     margin: '8px',
   },
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   color: {
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: '-20px',
+    marginBottom: '-10px',
   },
   containerWrapper: {
     width: '100%',
@@ -54,7 +55,9 @@ function TextToSpeech() {
   const classes = useStyles();
   const [value, setValue] = useState();
   const [modifiedValue, setModifiedValue] = useState([]); // creation d'un state array pour contenir le texte tranformer de voyelles.jsx
-  const [currentPolice, setCurrentPolice] = useState(''); //
+  const [currentPolice, setCurrentPolice] = useState('');
+  const [currentLineHeight, setCurrentLineHeight] = useState(''); //useState pour modifier interlignage
+  const [currentWordSpace, setCurrentWordSpace] = useState(''); //useState pour modifier inter-mot
   const [letterSpacing, setLetterSpacing] = useState('');
   const [colorText, setColorText] = useState('');
   const { speak } = useSpeechSynthesis();
@@ -76,11 +79,14 @@ function TextToSpeech() {
   return (
     <>
       <div className={classes.color}>
-        {/* recupration props value  enfant to parent */}
+        <Interlignage onChangeLine={(newLineHeight) => setCurrentLineHeight(newLineHeight)} />
+        <WordSpacing onChangeLine={(newWordSpace) => setCurrentWordSpace(newWordSpace)} />
         <Espace letterSpacingModifier={(newEspace) => setLetterSpacing(newEspace)} />
+        <Police onChangePolice={(newPolice) => setCurrentPolice(newPolice)} />
         <Couleur colorModifier={handleColorModifier} />
         <Voyelles textModifier={handleTextModifier} value={value} />
-        <Police onChangePolice={(newPolice) => setCurrentPolice(newPolice)} />
+
+        <RecordVoiceOver onClick={() => speak({ text: value })} />
       </div>
 
       <div className={classes.root}>
@@ -91,18 +97,20 @@ function TextToSpeech() {
             placeholder="Entrer votre texte..."
             helperText="Facilitons la lecture !"
             multiline
-            rows={10}
+            rows={20}
             margin="normal"
             InputLabelProps={{
               shrink: true,
             }}
-            variant="filled"
+            variant="outlined"
             value={value}
             className={classes.input}
             onChange={handleValueChange}
             InputProps={{
               style: {
                 fontFamily: currentPolice,
+                lineHeight: currentLineHeight,
+                wordSpacing: currentWordSpace,
                 letterSpacing: letterSpacing,
                 color: colorText,
                 boxShadow: '0 0 10px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
@@ -117,7 +125,17 @@ function TextToSpeech() {
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Vos Modifications
                 </Typography>
-                <Typography style={{ fontFamily: currentPolice, letterSpacing: letterSpacing, color: colorText }} variant="h5" component="h2">
+                {/* parcours mon tableau et affiche les lettres avec les span colorier */}
+                <Typography
+                  style={{
+                    fontFamily: currentPolice,
+                    lineHeight: currentLineHeight,
+                    wordSpacing: currentWordSpace,
+                    letterSpacing: letterSpacing,
+                    color: colorText,
+                  }}
+                  variant="h5"
+                  component="h2">
                   {/* parcpour mon tableau et affiche les lettres avec les span colorier */}
                   {/*fragment = <> utilisé pour englober letter et mettre une key  */}
                   {modifiedValue.map((letter, index) => (
@@ -133,7 +151,6 @@ function TextToSpeech() {
           </div>
         </Box>
         {/* librairie text to speach */}
-        <RecordVoiceOver onClick={() => speak({ text: value })} />
       </div>
     </>
   );
