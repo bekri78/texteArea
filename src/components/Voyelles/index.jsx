@@ -28,7 +28,7 @@ export default function Voyelles(props) {
         }
       }
     }
-
+    console.log(newArea);
     return props.textModifier(newArea);
   };
 
@@ -42,9 +42,13 @@ export default function Voyelles(props) {
 
   return (
     <div>
+      <h4>Couleur voyelle</h4>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Selectionner</InputLabel>
+        <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
+          Selectionner
+        </InputLabel>
         <Select
+          className={classes.select}
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           open={open}
@@ -52,6 +56,9 @@ export default function Voyelles(props) {
           onOpen={handleOpen}
           value={colorValue}
           onChange={handleChange}>
+          <MenuItem className={classes.menuItem} value="">
+            <em>None</em>
+          </MenuItem>
           {COLOR_OPTIONS.map((item) => (
             <MenuItem value={item.value} key={item.id}>
               <Avatar className={classes[item.class]}>{item.letter}</Avatar>

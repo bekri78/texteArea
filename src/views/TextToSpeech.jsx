@@ -1,10 +1,12 @@
 import React, { useState, useCallback, Fragment } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { makeStyles } from '@material-ui/core/styles';
-import { AccessAlarm } from '@material-ui/icons';
+import { RecordVoiceOver } from '@material-ui/icons';
+//import PDF from '../components/Pdf/pdf';
 import { Box, TextField, Typography, CardContent, Card } from '@material-ui/core';
 import Interlignage from '../components/Interlignage';
 import WordSpacing from '../components/Intermot';
+import Espace from '../components/Espace';
 import Couleur from '../components/Couleur';
 import Voyelles from '../components/Voyelles';
 import Police from '../components/Police';
@@ -13,8 +15,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    height: '200px',
     padding: '27px 12px 10px',
+  },
+  root2: {
+    boxShadow: '0 0px 10px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+    minHeight: '497px',
+    maxHeight: '497px',
+    overflow: 'auto',
+    margin: '8px',
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -36,6 +44,11 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: '1fr 1fr',
     gridColumnGap: '10px',
   },
+  botom: {
+    margin: '10px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 }));
 
 function TextToSpeech() {
@@ -45,15 +58,22 @@ function TextToSpeech() {
   const [currentPolice, setCurrentPolice] = useState('');
   const [currentLineHeight, setCurrentLineHeight] = useState(''); //useState pour modifier interlignage
   const [currentWordSpace, setCurrentWordSpace] = useState(''); //useState pour modifier inter-mot
+  const [letterSpacing, setLetterSpacing] = useState('');
+  const [colorText, setColorText] = useState('');
   const { speak } = useSpeechSynthesis();
+
   // Callback avec array vide permet de ne pas re rendre la déclaration d'une function
   const handleValueChange = useCallback((event) => {
     setValue(event.target.value);
   }, []);
 
-  // Callback avec array vide permet de ne pas re rendre la déclaration d'une function
   const handleTextModifier = useCallback((newText) => {
     setModifiedValue(newText);
+    console.log(newText);
+  });
+
+  const handleColorModifier = useCallback((newColor) => {
+    setColorText(newColor);
   });
 
   return (
@@ -61,10 +81,12 @@ function TextToSpeech() {
       <div className={classes.color}>
         <Interlignage onChangeLine={(newLineHeight) => setCurrentLineHeight(newLineHeight)} />
         <WordSpacing onChangeLine={(newWordSpace) => setCurrentWordSpace(newWordSpace)} />
-        <Couleur />
-        {/* recupération props " textModifier " enfant to parents */}
-        <Voyelles textModifier={handleTextModifier} value={value} />
+        <Espace letterSpacingModifier={(newEspace) => setLetterSpacing(newEspace)} />
         <Police onChangePolice={(newPolice) => setCurrentPolice(newPolice)} />
+        <Couleur colorModifier={handleColorModifier} />
+        <Voyelles textModifier={handleTextModifier} value={value} />
+
+        <RecordVoiceOver onClick={() => speak({ text: value })} />
       </div>
 
       <div className={classes.root}>
@@ -84,23 +106,37 @@ function TextToSpeech() {
             value={value}
             className={classes.input}
             onChange={handleValueChange}
-            inputProps={{
-              style: { fontFamily: currentPolice, lineHeight: currentLineHeight, wordSpacing: currentWordSpace },
+            InputProps={{
+              style: {
+                fontFamily: currentPolice,
+                lineHeight: currentLineHeight,
+                wordSpacing: currentWordSpace,
+                letterSpacing: letterSpacing,
+                color: colorText,
+                boxShadow: '0 0 10px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+              },
             }}
           />
           {/* wordBreak: 'break-all'  = retour a la ligne du text automatique*/}
           <div style={{ wordBreak: 'break-all' }}>
             {/* utilisation d'une card car textarea ne supporte pas le html */}
-            <Card className={classes.root}>
+            <Card className={classes.root2}>
               <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Vos Modifications
                 </Typography>
+                {/* parcours mon tableau et affiche les lettres avec les span colorier */}
                 <Typography
-                  style={{ fontFamily: currentPolice, lineHeight: currentLineHeight, wordSpacing: currentWordSpace }}
+                  style={{
+                    fontFamily: currentPolice,
+                    lineHeight: currentLineHeight,
+                    wordSpacing: currentWordSpace,
+                    letterSpacing: letterSpacing,
+                    color: colorText,
+                  }}
                   variant="h5"
                   component="h2">
-                  {/* parcours mon tableau et affiche les lettres avec les span colorier */}
+                  {/* parcpour mon tableau et affiche les lettres avec les span colorier */}
                   {/*fragment = <> utilisé pour englober letter et mettre une key  */}
                   {modifiedValue.map((letter, index) => (
                     <Fragment key={index}>{letter}</Fragment>
@@ -108,10 +144,13 @@ function TextToSpeech() {
                 </Typography>
               </CardContent>
             </Card>
+            {/* <div className={classes.botom}>
+             <PDF content={value} /> 
+              <GetApp />
+            </div> */}
           </div>
         </Box>
         {/* librairie text to speach */}
-        <AccessAlarm onClick={() => speak({ text: value })} />
       </div>
     </>
   );

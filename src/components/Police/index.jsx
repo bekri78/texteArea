@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -7,13 +8,18 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+  },
+  inputLabel: {
+    fontSize: '16px',
+  },
+  menuItem: {
+    fontSize: '16px',
+  },
+  select: {
+    fontSize: '16px',
   },
 }));
 
@@ -39,9 +45,13 @@ export default function Police(props) {
 
   return (
     <div>
+      <h4>Police</h4>
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-controlled-open-select-label">Selectionner </InputLabel>
+        <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
+          Selectionner{' '}
+        </InputLabel>
         <Select
+          className={classes.select}
           labelId="demo-controlled-open-select-label"
           id="demo-controlled-open-select"
           open={open}
@@ -49,13 +59,18 @@ export default function Police(props) {
           onOpen={handleOpen}
           value={police}
           onChange={handleChange}>
-          <MenuItem value={'"New Tegomin", serif'}>
-            <Typography style={{ fontFamily: '"New Tegomin", serif' }}>Police Tegomin</Typography>
+          <MenuItem className={classes.menuItem} value="">
+            <em>None</em>
           </MenuItem>
-          <MenuItem value={'"Dancing Script", serif'}>
+          <MenuItem value={'"New Tegomin", serif'}>
+            <Typography className={classes.menuItem} style={{ fontFamily: '"New Tegomin", serif' }}>
+              Police Tegomin
+            </Typography>
+          </MenuItem>
+          <MenuItem className={classes.menuItem} value={'"Dancing Script", serif'}>
             <Typography style={{ fontFamily: '"Dancing Script", serif' }}>Police Dancing</Typography>
           </MenuItem>
-          <MenuItem value={'"Source Serif Pro", serif'}>
+          <MenuItem className={classes.menuItem} value={'"Source Serif Pro", serif'}>
             <Typography style={{ fontFamily: '"Source Serif Pro", serif' }}>Police serif Pro</Typography>
           </MenuItem>
         </Select>

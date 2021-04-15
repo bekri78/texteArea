@@ -43,9 +43,10 @@ export default function WordSpacing(props) {
 
   return (
     <div>
+      <h4>Inter-mot</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="controlled-open-select-label">
-          Inter-mot
+          Sélectionner
         </InputLabel>
         <Select
           className={classes.select}
@@ -60,19 +61,19 @@ export default function WordSpacing(props) {
             <em>None</em>
           </MenuItem>
           <MenuItem className={classes.menuItem} value={3}>
-            3 pt
+            1
           </MenuItem>
           <MenuItem className={classes.menuItem} value={6}>
-            6 pt
+            2
           </MenuItem>
           <MenuItem className={classes.menuItem} value={9}>
-            9 pt
+            3
           </MenuItem>
           <MenuItem className={classes.menuItem} value={15}>
-            12 pt
+            4
           </MenuItem>
           <MenuItem className={classes.menuItem} value={20}>
-            15 pt
+            5
           </MenuItem>
         </Select>
       </FormControl>

@@ -4,24 +4,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Avatar from '@material-ui/core/Avatar';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-  },
-  orange: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
-  },
-  blue: {
-    backgroundColor: '#0000FF',
-  },
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
   },
   inputLabel: {
     fontSize: '16px',
@@ -34,14 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Couleur(props) {
+export default function Espace(props) {
   const classes = useStyles();
-  const [couleur, setCouleur] = React.useState('');
+  const [letterSpacing, setLetterSpacing] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event) => {
-    setCouleur(event.target.value);
-    props.colorModifier(event.target.value);
+    // eslint-disable-next-line react/prop-types
+    props.letterSpacingModifier(event.target.value);
+    setLetterSpacing(event.target.value);
   };
 
   const handleClose = () => {
@@ -54,10 +42,10 @@ export default function Couleur(props) {
 
   return (
     <div>
-      <h4>Couleur</h4>
+      <h4>Inter-lettre</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
-          Selectionner{' '}
+          Selectionner
         </InputLabel>
         <Select
           className={classes.select}
@@ -66,22 +54,19 @@ export default function Couleur(props) {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={couleur}
+          value={letterSpacing}
           onChange={handleChange}>
           <MenuItem className={classes.menuItem} value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={'orange'}>
-            {' '}
-            <Avatar className={classes.orange}>Or</Avatar>
+          <MenuItem className={classes.menuItem} value={'.1rem'}>
+            1
           </MenuItem>
-          <MenuItem value={'blue'}>
-            {' '}
-            <Avatar className={classes.blue}>Ja</Avatar>
+          <MenuItem className={classes.menuItem} value={'.2rem'}>
+            2
           </MenuItem>
-          <MenuItem value={'purple'}>
-            {' '}
-            <Avatar className={classes.purple}>Vi</Avatar>
+          <MenuItem className={classes.menuItem} value={'.3rem'}>
+            3
           </MenuItem>
         </Select>
       </FormControl>
