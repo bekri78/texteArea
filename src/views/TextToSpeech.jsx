@@ -1,7 +1,7 @@
-import React, { useState, useCallback, Fragment, useEffect } from 'react';
+import React, { useState, useCallback, Fragment } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { makeStyles } from '@material-ui/core/styles';
-import { RecordVoiceOver, GetApp } from '@material-ui/icons';
+import { RecordVoiceOver } from '@material-ui/icons';
 //import PDF from '../components/Pdf/pdf';
 
 import { Box, TextField, Typography, CardContent, Card } from '@material-ui/core';
@@ -14,8 +14,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
-    height: '200px',
     padding: '27px 12px 10px',
+  },
+  root2: {
+    boxShadow: '0 0px 10px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
+    minHeight: '227px',
+    maxHeight: '227px',
+    overflow: 'auto',
+    margin: '8px',
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -51,17 +57,8 @@ function TextToSpeech() {
   const [currentPolice, setCurrentPolice] = useState(''); //
   const [letterSpacing, setLetterSpacing] = useState('');
   const [colorText, setColorText] = useState('');
-  const [display, setDisplay] = useState('');
   const { speak } = useSpeechSynthesis();
 
-  useEffect(() => {
-    // si mon tableau qui contient mes caractère est vide change mon state  en none sinon block
-    if (modifiedValue.length === 0 || modifiedValue == ['']) {
-      setDisplay('none');
-    } else {
-      setDisplay('block');
-    }
-  });
   // Callback avec array vide permet de ne pas re rendre la déclaration d'une function
   const handleValueChange = useCallback((event) => {
     setValue(event.target.value);
@@ -94,7 +91,7 @@ function TextToSpeech() {
             placeholder="Entrer votre texte..."
             helperText="Facilitons la lecture !"
             multiline
-            rows={20}
+            rows={10}
             margin="normal"
             InputLabelProps={{
               shrink: true,
@@ -108,14 +105,14 @@ function TextToSpeech() {
                 fontFamily: currentPolice,
                 letterSpacing: letterSpacing,
                 color: colorText,
+                boxShadow: '0 0 10px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
               },
             }}
           />
-
           {/* wordBreak: 'break-all'  = retour a la ligne du text automatique*/}
-          <div style={{ wordBreak: 'break-all', display: display }}>
+          <div style={{ wordBreak: 'break-all' }}>
             {/* utilisation d'une card car textarea ne supporte pas le html */}
-            <Card className={classes.root}>
+            <Card className={classes.root2}>
               <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   Vos Modifications
@@ -129,10 +126,10 @@ function TextToSpeech() {
                 </Typography>
               </CardContent>
             </Card>
-            <div className={classes.botom}>
-              {/* <PDF content={value} /> */}
+            {/* <div className={classes.botom}>
+             <PDF content={value} /> 
               <GetApp />
-            </div>
+            </div> */}
           </div>
         </Box>
         {/* librairie text to speach */}
