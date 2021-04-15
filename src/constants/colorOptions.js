@@ -15,7 +15,7 @@ const config = [
     id: 3,
     value: 'green',
     class: 'vert',
-    letter: 'V',
+    letter: 'Vert',
   },
   {
     id: 4,
