@@ -45,7 +45,7 @@ export default function Police(props) {
 
   return (
     <div>
-      <h4>Police</h4>
+      <h4 style={{ textAlign: 'center' }}>Police</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
           Selectionner{' '}

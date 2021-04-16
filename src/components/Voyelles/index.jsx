@@ -42,7 +42,7 @@ export default function Voyelles(props) {
 
   return (
     <div>
-      <h4>Couleur Voyelles</h4>
+      <h4 style={{ textAlign: 'center' }}>Couleur Voyelles</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
           Selectionner
@@ -61,7 +61,9 @@ export default function Voyelles(props) {
           </MenuItem>
           {COLOR_OPTIONS.map((item) => (
             <MenuItem value={item.value} key={item.id}>
-              <Avatar className={classes[item.class]}>{item.letter}</Avatar>
+              <Avatar style={{ height: '29px', width: '29px' }} className={classes[item.class]}>
+                {item.letter}
+              </Avatar>
             </MenuItem>
           ))}
         </Select>

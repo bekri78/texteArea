@@ -43,7 +43,7 @@ export default function WordSpacing(props) {
 
   return (
     <div>
-      <h4>Inter-mot</h4>
+      <h4 style={{ textAlign: 'center' }}>Inter-mot</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="controlled-open-select-label">
           Sélectionner

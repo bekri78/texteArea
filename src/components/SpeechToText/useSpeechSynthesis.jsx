@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSpeechSynthesis } from '../../ReactSpech';
 import { Container } from '../shared';
+import Button from '@material-ui/core/Button';
 
 function Example(props) {
   const [text, setText] = useState();
@@ -32,14 +33,12 @@ function Example(props) {
   return (
     <Container>
       <form>
-        <h2>Speech Synthesis</h2>
-        {!supported && <p>Oh no, it looks like your browser doesn&#39;t support Speech Synthesis.</p>}
+        <h2>Lecture audio</h2>
+        {!supported && <p>Quelle dommage il semble que vous ne puissiez utilisez cette fonctionnalitée.</p>}
         {supported && (
           <React.Fragment>
-            <p>
-              {`Type a message below then click 'Speak'
-                and SpeechSynthesis will read it out.`}
-            </p>
+            <p>{`Afin de vous faciliter  la lecture notre lecteur de chargera de rentranscrire votre texte avec differentes voix et accents de differrents pays.`}</p>
+
             <label htmlFor="voice">Voice</label>
             <select
               id="voice"
@@ -57,7 +56,7 @@ function Example(props) {
             </select>
             <div style={styleContainerRatePitch}>
               <div style={styleFlexRow}>
-                <label htmlFor="rate">Rate: </label>
+                <label htmlFor="rate">Vitesse: </label>
                 <div className="rate-value">{rate}</div>
               </div>
               <input
@@ -89,14 +88,15 @@ function Example(props) {
                 }}
               />
             </div>
+
             {speaking ? (
-              <button type="button" onClick={cancel}>
+              <Button variant="contained" color="primary" onClick={cancel}>
                 Stop
-              </button>
+              </Button>
             ) : (
-              <button type="button" onClick={() => speak({ text, voice, rate, pitch })}>
-                Speak
-              </button>
+              <Button variant="contained" color="primary" onClick={() => speak({ text, voice, rate, pitch })}>
+                Play
+              </Button>
             )}
           </React.Fragment>
         )}

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSpeechRecognition } from '../../ReactSpech';
 import { Container } from '../shared';
+import Button from '@material-ui/core/Button';
 
 const languageOptions = [
   { label: 'Cambodian', value: 'km-KH' },
@@ -62,15 +63,15 @@ function Example(props) {
   return (
     <Container>
       <form id="speech-recognition-form">
-        <h2>Speech Recognition</h2>
-        {!supported && <p>Oh no, it looks like your browser doesn&#39;t support Speech Recognition.</p>}
+        <h2>Reconnaisse vocale</h2>
+        {!supported && <p>Quelle dommage il semble que vous ne puissiez utilisez cette fonctionnalitée</p>}
         {supported && (
           <React.Fragment>
-            <p>
-              {`Click 'Listen' and start speaking.
-               SpeechRecognition will provide a transcript of what you are saying.`}
-            </p>
-            <label htmlFor="language">Language</label>
+            <p>{`Par ce que faciliter l'acces a la lecture est notre priorité, nous avons mis en place une reconnaissance vocale. .`}</p>
+            <p>{` Comment l'utilisez ? rien de plus simple , clicker sur le bouton et parler d'une voix claire en articulant les mots..`}</p>
+            <p style={{ marginBottom: '0px' }}>{`  Une fois votre message terminer rappuyez sur le bouton afin de couper l'enregistrement.`}</p>
+
+            <label htmlFor="language">Langue</label>
             <select form="speech-recognition-form" id="language" value={lang} onChange={changeLang}>
               {languageOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -78,10 +79,11 @@ function Example(props) {
                 </option>
               ))}
             </select>
-            <button disabled={blocked} type="button" onClick={toggle}>
-              {listening ? 'Stop' : 'Listen'}
-            </button>
-            {blocked && <p style={{ color: 'red' }}>The microphone is blocked for this site in your browser.</p>}
+            <Button variant="contained" color="primary" disabled={blocked} onClick={toggle}>
+              {listening ? 'Stop' : 'Parler'}
+            </Button>
+
+            {blocked && <p style={{ color: 'red' }}>Le micro est bloqué sur ce navigateur verifiez vos parametres</p>}
           </React.Fragment>
         )}
       </form>

@@ -42,7 +42,7 @@ export default function Interlignage(props) {
 
   return (
     <div>
-      <h4>Interlignage</h4>
+      <h4 style={{ textAlign: 'center' }}>Interlignage</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="controlled-open-select-label">
           Sélectionner

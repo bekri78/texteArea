@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -13,13 +14,19 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
   },
   orange: {
+    height: '29px',
+    width: '29px',
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500],
   },
   blue: {
+    height: '29px',
+    width: '29px',
     backgroundColor: '#0000FF',
   },
   purple: {
+    height: '29px',
+    width: '29px',
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },
@@ -54,7 +61,7 @@ export default function Couleur(props) {
 
   return (
     <div>
-      <h4>Couleur</h4>
+      <h4 style={{ textAlign: 'center' }}>Couleur</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
           Selectionner{' '}
@@ -73,15 +80,15 @@ export default function Couleur(props) {
           </MenuItem>
           <MenuItem value={'orange'}>
             {' '}
-            <Avatar className={classes.orange}>Or</Avatar>
+            <Avatar className={classes.orange}>O</Avatar>
           </MenuItem>
           <MenuItem value={'blue'}>
             {' '}
-            <Avatar className={classes.blue}>Ja</Avatar>
+            <Avatar className={classes.blue}>J</Avatar>
           </MenuItem>
           <MenuItem value={'purple'}>
             {' '}
-            <Avatar className={classes.purple}>Vi</Avatar>
+            <Avatar className={classes.purple}>V</Avatar>
           </MenuItem>
         </Select>
       </FormControl>
