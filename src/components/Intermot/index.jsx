@@ -32,7 +32,7 @@ export default function WordSpacing(props) {
   const handleChangeWordSpaceClick = (event) => {
     setWordSpace(event.target.value);
     // eslint-disable-next-line react/prop-types
-    props.onChangeLine(event.target.value);
+    props.onChangeWord(event.target.value);
   };
 
   const handleCloseSelectLine = () => {

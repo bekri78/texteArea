@@ -86,7 +86,7 @@ function TextToSpeech() {
       </div>
       <div className={classes.color}>
         <Interlignage onChangeLine={(newLineHeight) => setCurrentLineHeight(newLineHeight)} />
-        <WordSpacing onChangeLine={(newWordSpace) => setCurrentWordSpace(newWordSpace)} />
+        <WordSpacing onChangeWord={(newWordSpace) => setCurrentWordSpace(newWordSpace)} />
         <Espace letterSpacingModifier={(newEspace) => setLetterSpacing(newEspace)} />
         <Police onChangePolice={(newPolice) => setCurrentPolice(newPolice)} />
         <Couleur colorModifier={handleColorModifier} />
