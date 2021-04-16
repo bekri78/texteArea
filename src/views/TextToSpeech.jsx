@@ -1,8 +1,8 @@
-import React, { useState, useCallback, Fragment, useEffect } from 'react';
+import React, { useState, useCallback, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Box, TextField, Typography, CardContent, Card } from '@material-ui/core';
 import SpeechSynthesisExample from '../components/SpeechToText/useSpeechSynthesis';
 import SpeechRecognitionExample from '../components/SpeechToText/useSpeechRecognition';
-import { Box, TextField, Typography, CardContent, Card } from '@material-ui/core';
 import Interlignage from '../components/Interlignage';
 import WordSpacing from '../components/Intermot';
 import Espace from '../components/Espace';
@@ -65,13 +65,6 @@ function TextToSpeech() {
   const [letterSpacing, setLetterSpacing] = useState('');
   const [colorText, setColorText] = useState('');
 
-  useEffect(
-    () => {
-      console.log('je suis la', value);
-    },
-    { value },
-  );
-
   // Callback avec array vide permet de ne pas re rendre la déclaration d'une function
   const handleValueChange = useCallback((event) => {
     setValue(event.target.value);
@@ -79,7 +72,6 @@ function TextToSpeech() {
 
   const handleTextModifier = useCallback((newText) => {
     setModifiedValue(newText);
-    console.log(newText);
   });
 
   const handleColorModifier = useCallback((newColor) => {
@@ -156,10 +148,6 @@ function TextToSpeech() {
                 </Typography>
               </CardContent>
             </Card>
-            {/* <div className={classes.botom}>
-             <PDF content={value} /> 
-              <GetApp />
-            </div> */}
           </div>
         </Box>
       </div>

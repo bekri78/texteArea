@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-onchange */
 import React, { useState, useEffect } from 'react';
+import Button from '@material-ui/core/Button';
 import { useSpeechRecognition } from '../../ReactSpech';
 import { Container } from '../shared';
-import Button from '@material-ui/core/Button';
 
 const languageOptions = [
   { label: 'Cambodian', value: 'km-KH' },
@@ -25,13 +25,9 @@ function Example(props) {
 
   useEffect(() => {
     props.vocaleTexte(value);
-    console.log(value);
   }, [value]);
 
-  const onEnd = () => {
-    console.log('finish');
-    // You could do something here after listening has finished
-  };
+  const onEnd = () => {};
 
   const onResult = (result) => {
     setValue(result);
@@ -59,6 +55,12 @@ function Example(props) {
         setBlocked(false);
         listen({ lang });
       };
+  const erreurMic = {
+    color: 'red',
+  };
+  const pBotom = {
+    marginBottom: '0px',
+  };
 
   return (
     <Container>
@@ -69,7 +71,7 @@ function Example(props) {
           <React.Fragment>
             <p>{`Par ce que faciliter l'acces a la lecture est notre priorité, nous avons mis en place une reconnaissance vocale. .`}</p>
             <p>{` Comment l'utilisez ? rien de plus simple , clicker sur le bouton et parler d'une voix claire en articulant les mots..`}</p>
-            <p style={{ marginBottom: '0px' }}>{`  Une fois votre message terminer rappuyez sur le bouton afin de couper l'enregistrement.`}</p>
+            <p style={pBotom}>{`  Une fois votre message terminer rappuyez sur le bouton afin de couper l'enregistrement.`}</p>
 
             <label htmlFor="language">Langue</label>
             <select form="speech-recognition-form" id="language" value={lang} onChange={changeLang}>
@@ -83,7 +85,7 @@ function Example(props) {
               {listening ? 'Stop' : 'Parler'}
             </Button>
 
-            {blocked && <p style={{ color: 'red' }}>Le micro est bloqué sur ce navigateur verifiez vos parametres</p>}
+            {blocked && <p style={erreurMic}>Le micro est bloqué sur ce navigateur verifiez vos parametres</p>}
           </React.Fragment>
         )}
       </form>

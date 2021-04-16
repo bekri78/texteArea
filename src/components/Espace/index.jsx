@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
   select: {
     fontSize: '16px',
   },
+  center: {
+    textAlign: 'center',
+  },
 }));
 
 export default function Espace(props) {
@@ -42,7 +45,7 @@ export default function Espace(props) {
 
   return (
     <div>
-      <h4 style={{ textAlign: 'center' }}>Inter-lettre</h4>
+      <h4 className={classes.center}>Inter-lettre</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
           Selectionner

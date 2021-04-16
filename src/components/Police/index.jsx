@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   select: {
     fontSize: '16px',
   },
+  center: {
+    textAlign: 'center',
+  },
 }));
 
 export default function Police(props) {
@@ -32,7 +35,6 @@ export default function Police(props) {
     // eslint-disable-next-line react/prop-types
     props.onChangePolice(event.target.value);
     setPolice(event.target.value);
-    console.log(event);
   };
 
   const handleClose = () => {
@@ -45,7 +47,7 @@ export default function Police(props) {
 
   return (
     <div>
-      <h4 style={{ textAlign: 'center' }}>Police</h4>
+      <h4 className={classes.center}>Police</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
           Selectionner{' '}

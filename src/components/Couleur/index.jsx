@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
   select: {
     fontSize: '16px',
   },
+  center: {
+    textAlign: 'center',
+  },
 }));
 
 export default function Couleur(props) {
@@ -61,7 +64,7 @@ export default function Couleur(props) {
 
   return (
     <div>
-      <h4 style={{ textAlign: 'center' }}>Couleur</h4>
+      <h4 className={classes.center}>Couleur</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
           Selectionner{' '}

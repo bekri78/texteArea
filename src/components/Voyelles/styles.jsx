@@ -10,15 +10,23 @@ const useStyles = makeStyles((theme) => ({
   },
   vert: {
     backgroundColor: '#008000',
+    height: '29px',
+    width: '29px',
   },
   rouge: {
     backgroundColor: '#8B0000',
+    height: '29px',
+    width: '29px',
   },
   gris: {
     backgroundColor: '#C0C0C0',
+    height: '29px',
+    width: '29px',
   },
   jaune: {
     backgroundColor: '#FFFF00',
+    height: '29px',
+    width: '29px',
   },
 
   inputLabel: {
@@ -29,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     fontSize: '16px',
+  },
+  centrage: {
+    textAlign: 'center',
   },
 }));
 

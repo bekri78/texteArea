@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
   select: {
     fontSize: '16px',
   },
+  center: {
+    textAlign: 'center',
+  },
 }));
 
 export default function Interlignage(props) {
@@ -42,7 +45,7 @@ export default function Interlignage(props) {
 
   return (
     <div>
-      <h4 style={{ textAlign: 'center' }}>Interlignage</h4>
+      <h4 className={classes.center}>Interlignage</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="controlled-open-select-label">
           Sélectionner

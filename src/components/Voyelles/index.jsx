@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import COLOR_OPTIONS from '../../constants/colorOptions';
-import useStyles from './styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Avatar from '@material-ui/core/Avatar';
+import COLOR_OPTIONS from '../../constants/colorOptions';
+import useStyles from './styles';
 
 export default function Voyelles(props) {
   const classes = useStyles();
@@ -28,7 +28,7 @@ export default function Voyelles(props) {
         }
       }
     }
-    console.log(newArea);
+
     return props.textModifier(newArea);
   };
 
@@ -42,7 +42,7 @@ export default function Voyelles(props) {
 
   return (
     <div>
-      <h4 style={{ textAlign: 'center' }}>Couleur Voyelles</h4>
+      <h4>Couleur Voyelles</h4>
       <FormControl className={classes.formControl}>
         <InputLabel className={classes.inputLabel} id="demo-controlled-open-select-label">
           Selectionner
@@ -61,9 +61,7 @@ export default function Voyelles(props) {
           </MenuItem>
           {COLOR_OPTIONS.map((item) => (
             <MenuItem value={item.value} key={item.id}>
-              <Avatar style={{ height: '29px', width: '29px' }} className={classes[item.class]}>
-                {item.letter}
-              </Avatar>
+              <Avatar className={classes[item.class]}>{item.letter}</Avatar>
             </MenuItem>
           ))}
         </Select>
