@@ -23,8 +23,6 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.49",
     "@material-ui/utils": "^4.11.2",
-    "@react-google-maps/api": "^2.1.1",
-    "antd": "^4.15.1",
     "autoprefixer": "^10.2.5",
     "bootstrap": "^4.6.0",
     "google-map-react": "^2.1.9",
