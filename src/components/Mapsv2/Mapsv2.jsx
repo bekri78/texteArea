@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+// import ParlorForm from '../AutoComplete/googlePlace';
 import { Container, Row } from 'react-bootstrap';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker/Marker.tsx';
 import MapSvg from './map.svg';
 import Card from '../CardMaterialUi/Card';
+
 import './Maps.css';
 function Mapsv2() {
   const key = 'AIzaSyAURsom7c-jmbNERN0wVqb4OzVten2Hy24'; // clef gogle map api
@@ -11,7 +13,7 @@ function Mapsv2() {
   const [lng, setLng] = useState(null); // state longitude
   const [dataPlace, setDataPLace] = useState([]); // tableau recuperation des données de l'api
 
-  if (navigator.geolocation) {
+  /*if (navigator.geolocation) {
     // recuperation coordoner lat - lng depuis le navigateur
     navigator.geolocation.getCurrentPosition((position) => {
       setLat(position.coords.latitude);
@@ -23,16 +25,50 @@ function Mapsv2() {
       3) proposer de passer carte centrer part default sur paris:
       lat:48.856614
       lng:2.3522219
-      */
+      
     });
-  }
+  }*/
   useEffect(() => {
+    if (navigator.geolocation) {
+      // appel de la function  getCoordinate si ok sinon appel de handleLocationError
+      navigator.geolocation.getCurrentPosition(getCoordinate, handleLocationError);
+
+      /*todo : SI La geoloc est refusé :
+        1) modal  bootstrap ou material ui ( geolococ refusé )
+        2) proposer input pour entrer adresse
+        3) proposer de passer carte centrer part default sur paris:
+        lat:48.856614
+        lng:2.3522219
+        */
+    }
+
     //appel de ma function pour requete api
     // ne fonctionne pas encore correctement
-    requeteApiLocation();
   }, []);
 
+  const getCoordinate = (position) => {
+    setLat(position.coords.latitude);
+    setLng(position.coords.longitude);
+    requeteApiLocation();
+  };
+  const handleLocationError = (error) => {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        alert('User denied the request for Geolocation.');
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert('Location information is unavailable.');
+        break;
+      case error.TIMEOUT:
+        alert('The request to get user location timed out.');
+        break;
+      case error.UNKNOWN_ERROR:
+        alert('An unknown error occurred.');
+        break;
+    }
+  };
   const requeteApiLocation = () => {
+    console.log(lat, lng);
     // requete api : lat et lgn ne sont pas encore initialisé au demarrage faire correctif pour avoir la bonne valeur
     const requetesAPi = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=orthophoniste&location=${lat},${lng}&radius=5000&keyword=cruise&key=${key}`;
     fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(requetesAPi)}`)
@@ -53,7 +89,7 @@ function Mapsv2() {
   };
 
   const onMarkerDragEnd = (e) => {
-    // recuperation  nouvelle latitude et longitude
+    // recuperation  nouvelle latitude et longitude marker qui se deplace
     let newLat = e.latLng.lat();
     let newLng = e.latLng.lng();
     console.log(newLat, newLng);
@@ -61,6 +97,7 @@ function Mapsv2() {
 
   return (
     <Container>
+      <div>{/* <ParlorForm /> */}</div>
       <div className="intromap">
         <img id="mapsvg" src={MapSvg} alt="map" />
       </div>
@@ -72,7 +109,7 @@ function Mapsv2() {
           center={center}
           zoom={12}
           options={{ draggableCursor: 'crosshair' }}>
-          <Marker lat={48.9849174} lng={1.8088610999999999} color="red" text="My Marker" draggable={true} onDragend={onMarkerDragEnd} />
+          <Marker lat={lat} lng={lng} color="red" text="My Marker" draggable={true} onDragend={onMarkerDragEnd} />
           {dataPlace &&
             dataPlace.map((el, index) => (
               <Marker

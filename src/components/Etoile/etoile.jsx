@@ -10,7 +10,7 @@ export default function Etoile(props) {
   return (
     <div>
       <Box component="fieldset" mb={3} borderColor="transparent">
-        <Typography component="legend">Note: {value ? null : 'Pas encore de note soyer le premier !'}</Typography>
+        <Typography component="legend">Note: {value === 0 ? 'Pas encore de note soyez le premier !' : null}</Typography>
         <Rating
           name="simple-controlled"
           value={Math.floor(value)}
