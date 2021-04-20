@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Dialog } from '@material-ui/core';
 // import ParlorForm from '../AutoComplete/googlePlace';
 import { Container, Row } from 'react-bootstrap';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker/Marker.tsx';
 import MapSvg from './map.svg';
+
 import Card from '../CardMaterialUi/Card';
 
 import './Maps.css';
@@ -11,9 +13,10 @@ function Mapsv2() {
   const key = 'AIzaSyAURsom7c-jmbNERN0wVqb4OzVten2Hy24'; // clef gogle map api
   const [lat, setLat] = useState(null); // state latitude
   const [lng, setLng] = useState(null); // state longitude
+  const [error, setError] = useState('');
   const [dataPlace, setDataPLace] = useState([]); // tableau recuperation des données de l'api
 
-  /*if (navigator.geolocation) {
+  /*if (navigator.geolocation) { 
     // recuperation coordoner lat - lng depuis le navigateur
     navigator.geolocation.getCurrentPosition((position) => {
       setLat(position.coords.latitude);
@@ -28,10 +31,13 @@ function Mapsv2() {
       
     });
   }*/
+
   useEffect(() => {
+    const hasPosition = lat !== null && lng !== null;
+
     if (navigator.geolocation) {
-      // appel de la function  getCoordinate si ok sinon appel de handleLocationError
-      navigator.geolocation.getCurrentPosition(getCoordinate, handleLocationError);
+      // appel de la function  setCoordinates si ok sinon appel de handleLocationError
+      navigator.geolocation.getCurrentPosition(setCoordinates, handleLocationError);
 
       /*todo : SI La geoloc est refusé :
         1) modal  bootstrap ou material ui ( geolococ refusé )
@@ -42,47 +48,64 @@ function Mapsv2() {
         */
     }
 
-    //appel de ma function pour requete api
-    // ne fonctionne pas encore correctement
-  }, []);
+    if (hasPosition) {
+      requeteApiLocation();
+    }
+  }, [lat, lng]);
 
-  const getCoordinate = (position) => {
+  const setCoordinates = (position) => {
     setLat(position.coords.latitude);
     setLng(position.coords.longitude);
-    requeteApiLocation();
   };
+
   const handleLocationError = (error) => {
     switch (error.code) {
       case error.PERMISSION_DENIED:
-        alert('User denied the request for Geolocation.');
-        break;
+        return setError('User denied the request for Geolocation.');
       case error.POSITION_UNAVAILABLE:
-        alert('Location information is unavailable.');
-        break;
+        return setError('Location information is unavailable.');
       case error.TIMEOUT:
-        alert('The request to get user location timed out.');
-        break;
+        return setError('The request to get user location timed out.');
       case error.UNKNOWN_ERROR:
-        alert('An unknown error occurred.');
-        break;
+        return setError('An unknown error occurred.');
+      default:
+        return setError('Unknown error');
     }
   };
-  const requeteApiLocation = () => {
-    console.log(lat, lng);
-    // requete api : lat et lgn ne sont pas encore initialisé au demarrage faire correctif pour avoir la bonne valeur
-    const requetesAPi = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=orthophoniste&location=${lat},${lng}&radius=5000&keyword=cruise&key=${key}`;
-    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(requetesAPi)}`)
-      .then((response) => response.json(), console.log('envoyer'))
-      .then((data) => {
-        let recuperationData = JSON.parse(data.contents);
-        console.log(recuperationData.results);
-        // envoie des données au tableau
-        setDataPLace(recuperationData.results);
-      })
-      .catch(function (error) {
-        console.log("Il y a eu un problème avec l'opération fetch: " + error.message);
-      });
+
+  // const requeteApiLocation = () => {
+  //   console.log(lat, lng);
+  //   // requete api : lat et lgn ne sont pas encore initialisé au demarrage faire correctif pour avoir la bonne valeur
+  //   const requetesAPi = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=orthophoniste&location=${lat},${lng}&radius=5000&keyword=cruise&key=${key}`;
+  //   fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(requetesAPi)}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const recuperationData = JSON.parse(data.contents);
+  //       console.log(recuperationData.results);
+  //       // envoie des données au tableau
+  //       setDataPLace(recuperationData.results);
+  //     })
+  //     .catch(function (error) {
+  //       console.log("Il y a eu un problème avec l'opération fetch: " + error.message);
+  //     });
+  // };
+
+  const requeteApiLocation = async () => {
+    const cors = 'https://api.allorigins.win/get?url=';
+    const endpoint = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=orthophoniste&location=${lat},${lng}&radius=5000&keyword=cruise&key=${key}`;
+    const encodedEndpoint = encodeURIComponent(endpoint);
+
+    try {
+      const request = await fetch(`${cors}${encodedEndpoint}`);
+      const json = await request.json();
+      const { results } = JSON.parse(json.contents);
+
+      setDataPLace(results);
+    } catch (e) {
+      console.log(`Error: ${e}`);
+    }
   };
+
   const center = {
     lat: lat, // POSITION maison
     lng: lng, // POSITION maison
@@ -101,6 +124,7 @@ function Mapsv2() {
       <div className="intromap">
         <img id="mapsvg" src={MapSvg} alt="map" />
       </div>
+
       <div id="maps">
         <GoogleMapReact
           bootstrapURLKeys={{
@@ -111,9 +135,9 @@ function Mapsv2() {
           options={{ draggableCursor: 'crosshair' }}>
           <Marker lat={lat} lng={lng} color="red" text="My Marker" draggable={true} onDragend={onMarkerDragEnd} />
           {dataPlace &&
-            dataPlace.map((el, index) => (
+            dataPlace.map((el) => (
               <Marker
-                key={index}
+                key={el.place_id}
                 lat={el.geometry.location.lat} // POSiTION
                 lng={el.geometry.location.lng} // POSTION
                 color="blue"
@@ -121,11 +145,14 @@ function Mapsv2() {
             ))}
         </GoogleMapReact>
       </div>
+
       <Row>
-        {dataPlace.map((el, index) => (
-          <Card key={index} title={el.name.charAt(0)} name={el.name} adresse={el.formatted_address} etoile={el.rating} />
+        {dataPlace.map((el) => (
+          <Card key={el.place_id} title={el.name.charAt(0)} name={el.name} adresse={el.formatted_address} etoile={el.rating} />
         ))}
       </Row>
+
+      {error && <Dialog>{error}</Dialog>}
     </Container>
   );
 }
