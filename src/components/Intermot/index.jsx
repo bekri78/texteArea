@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function WordSpacing(props) {
+export default function Intermot(props) {
   const classes = useStyles();
   const [wordSpace, setWordSpace] = React.useState('');
   const [openSelectWord, setOpenSelectWord] = React.useState(false);
@@ -30,7 +30,7 @@ export default function WordSpacing(props) {
   const handleChangeWordSpaceClick = (event) => {
     setWordSpace(event.target.value);
     // eslint-disable-next-line react/prop-types
-    props.onChangeLine(event.target.value);
+    props.onChangeWord(event.target.value);
   };
 
   const handleCloseSelectLine = () => {
