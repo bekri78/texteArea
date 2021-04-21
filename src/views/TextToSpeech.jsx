@@ -5,7 +5,7 @@ import { RecordVoiceOver } from '@material-ui/icons';
 //import PDF from '../components/Pdf/pdf';
 import { Box, TextField, Typography, CardContent, Card } from '@material-ui/core';
 import Interlignage from '../components/Interlignage';
-import WordSpacing from '../components/Intermot';
+import Intermot from '../components/Intermot';
 import Espace from '../components/Espace';
 import Couleur from '../components/Couleur';
 import Voyelles from '../components/Voyelles';
@@ -80,7 +80,7 @@ function TextToSpeech() {
     <>
       <div className={classes.color}>
         <Interlignage onChangeLine={(newLineHeight) => setCurrentLineHeight(newLineHeight)} />
-        <WordSpacing onChangeLine={(newWordSpace) => setCurrentWordSpace(newWordSpace)} />
+        <Intermot onChangeWord={(newWordSpace) => setCurrentWordSpace(newWordSpace)} />
         <Espace letterSpacingModifier={(newEspace) => setLetterSpacing(newEspace)} />
         <Police onChangePolice={(newPolice) => setCurrentPolice(newPolice)} />
         <Couleur colorModifier={handleColorModifier} />
@@ -106,7 +106,7 @@ function TextToSpeech() {
             value={value}
             className={classes.input}
             onChange={handleValueChange}
-            InputProps={{
+            inputProps={{
               style: {
                 fontFamily: currentPolice,
                 lineHeight: currentLineHeight,
