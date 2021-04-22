@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
+import InpuPredictionsOnInputChangetSearch from '../AutoComplete/InputSearch';
 import Marker from './Marker/Marker.tsx';
 import CardMaterialUi from '../Card/Card';
 import './CardMaps.css';
@@ -16,7 +17,7 @@ function CardMaps() {
   useEffect(() => {
     const presentLocation = lat !== null && lng !== null;
 
-    if (navigator.geolocation) {
+    if (navigator.geolocation && lat === null && lng === null) {
       navigator.geolocation.getCurrentPosition(location, errorLocation);
     }
     if (presentLocation) {
@@ -61,6 +62,10 @@ function CardMaps() {
   return (
     <Container>
       <h1>Map</h1>
+      {/* appel du props et attribution des nouvelle lat et lnt setLat et setLng */}
+
+      <InpuPredictionsOnInputChangetSearch newLat={(latInput) => setLat(latInput)} newLng={(lngInput) => setLng(lngInput)} />
+
       <div id="map">
         <GoogleMapReact
           bootstrapURLKeys={{
