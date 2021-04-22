@@ -12,20 +12,23 @@ function CardMaps() {
   const [lng, setLng] = useState(null);
   const [error, setError] = useState('');
   const [dataPlace, setDataPlace] = useState([]);
-  const center = { lat: lat, lng: lng };
+  const center = { lat, lng };
+
+  useEffect(() => {
+    if (navigator.geolocation && lat === null && lng === null) {
+      navigator.geolocation.getCurrentPosition(successLocation, errorLocation);
+    }
+  }, []);
 
   useEffect(() => {
     const presentLocation = lat !== null && lng !== null;
 
-    if (navigator.geolocation && lat === null && lng === null) {
-      navigator.geolocation.getCurrentPosition(location, errorLocation);
-    }
     if (presentLocation) {
       resquestApi();
     }
   }, [lat, lng]);
 
-  const location = (position) => {
+  const successLocation = (position) => {
     setLat(position.coords.latitude);
     setLng(position.coords.longitude);
   };
@@ -68,12 +71,16 @@ function CardMaps() {
 
       <div id="map">
         <GoogleMapReact
+          draggable
           bootstrapURLKeys={{
             key: 'AIzaSyAURsom7c-jmbNERN0wVqb4OzVten2Hy24',
           }}
           center={center}
-          zoom={12}>
-          <Marker lat={lat} lng={lng} color="red" text="my-marker" />
+          zoom={12}
+          onChildMouseDown={(e) => console.log(e)}
+          onChildMouseUp={(e) => console.log(e)}
+          onChildMouseMove={(e) => console.log(e)}>
+          <Marker lat={lat} lng={lng} color="red" text="my-marker" draggable />
           {dataPlace &&
             dataPlace.map((data) => <Marker key={data.place_id} lat={data.geometry.location.lat} lng={data.geometry.location.lng} color="blue" />)}
         </GoogleMapReact>

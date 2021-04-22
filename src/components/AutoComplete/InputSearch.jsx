@@ -13,14 +13,14 @@ export default function PredictionsOnInputChange(props) {
     const presentLocation = selectedPrediction !== null;
 
     if (presentLocation) {
-      console.log('je suis dans le if de presentation');
       resquestApi();
     }
   }, [selectedPrediction]);
 
   useEffect(() => {
-    const prensentCoordonate = coordonnateLat !== null && coordonnateLng !== null;
-    if (prensentCoordonate) {
+    const presentCoords = coordonnateLat !== null && coordonnateLng !== null;
+
+    if (presentCoords) {
       props.newLat(coordonnateLat);
       props.newLng(coordonnateLng);
     }
@@ -60,13 +60,13 @@ export default function PredictionsOnInputChange(props) {
         <input name="predictionSearch" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
         <ul>
           {predictions?.map((prediction) => (
-            <li key={prediction?.place_id}>
-              <button onClick={(e) => handlePredictionSelection(e, prediction)}>{prediction?.description || 'Not found'}</button>
+            <li key={prediction.place_id}>
+              <button onClick={(e) => handlePredictionSelection(e, prediction)}>{prediction.description || 'Not found'}</button>
             </li>
           ))}
         </ul>
 
-        <h3>You selected: {selectedPrediction ? selectedPrediction : 'None'}</h3>
+        <h3>You selected: {selectedPrediction || 'None'}</h3>
       </form>
       {/* <button onClick={(() => props.newLat(coordonnateLat), props.newLng(coordonnateLng))} /> */}
     </>
